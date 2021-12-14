@@ -1,0 +1,6 @@
+apiVersion: ccapi.cockroachdb.cloud/v1alpha1
+kind: CrdbCluster
+metadata:
+  name: crdbcluster-sample
+spec:
+  # Add fields here
