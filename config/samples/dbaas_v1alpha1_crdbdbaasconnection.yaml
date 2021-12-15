@@ -1,0 +1,6 @@
+apiVersion: dbaas.redhat.com/v1alpha1
+kind: CrdbDBaaSConnection
+metadata:
+  name: crdbdbaasconnection-sample
+spec:
+  # Add fields here

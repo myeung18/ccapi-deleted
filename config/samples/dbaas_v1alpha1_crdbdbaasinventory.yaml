@@ -1,0 +1,6 @@
+apiVersion: dbaas.redhat.com/v1alpha1
+kind: CrdbDBaaSInventory
+metadata:
+  name: crdbdbaasinventory-sample
+spec:
+  # Add fields here

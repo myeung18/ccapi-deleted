@@ -1,0 +1,9 @@
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  name: crunchy-bridge-operator
+  namespace: openshift-marketplace
+spec:
+  sourceType: grpc
+  image: quay.io/myeung/ccapi-k8s-operator-catalog:v0.0.1
+  displayName: CockroachDB Cloud Operator

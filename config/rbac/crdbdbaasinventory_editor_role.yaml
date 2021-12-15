@@ -1,0 +1,24 @@
+# permissions for end users to edit crdbdbaasinventories.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crdbdbaasinventory-editor-role
+rules:
+- apiGroups:
+  - dbaas.redhat.com
+  resources:
+  - crdbdbaasinventories
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - dbaas.redhat.com
+  resources:
+  - crdbdbaasinventories/status
+  verbs:
+  - get
