@@ -56,6 +56,16 @@ spec:
       clusterPermissions:
       - rules:
         - apiGroups:
+          - ""
+          resources:
+          - secrets
+          verbs:
+          - create
+          - delete
+          - get
+          - list
+          - watch
+        - apiGroups:
           - apps
           resources:
           - deployments
@@ -189,7 +199,12 @@ spec:
                 - --leader-elect
                 command:
                 - /manager
-                image: quay.io/cockroachdb/ccapi-k8s-operator:0.0.1
+                env:
+                - name: INSTALL_NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                image: quay.io/myeung/ccapi-k8s-operator:0.0.1
                 imagePullPolicy: Always
                 livenessProbe:
                   httpGet:

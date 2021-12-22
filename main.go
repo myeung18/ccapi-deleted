@@ -18,6 +18,8 @@ package main
 
 import (
 	"flag"
+	dbaasv1alpha1 "github.com/RHEcosystemAppEng/dbaas-operator/api/v1alpha1"
+	"k8s.io/client-go/kubernetes"
 	"os"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
@@ -31,7 +33,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	dbaasv1alpha1 "github.com/cockroachdb/ccapi-k8s-operator/api/v1alpha1"
+	crdbdbaas "github.com/cockroachdb/ccapi-k8s-operator/api/v1alpha1"
 	"github.com/cockroachdb/ccapi-k8s-operator/controllers"
 	//+kubebuilder:scaffold:imports
 )
@@ -45,6 +47,8 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(dbaasv1alpha1.AddToScheme(scheme))
+
+	utilruntime.Must(crdbdbaas.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -90,6 +94,20 @@ func main() {
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "CrdbDBaaSConnection")
+		os.Exit(1)
+	}
+	cfg := mgr.GetConfig()
+	clientSet, err := kubernetes.NewForConfig(cfg)
+	if err != nil {
+		setupLog.Error(err, "unable to create clientset")
+		os.Exit(1)
+	}
+	if err = (&controllers.DBaaSProviderReconciler{
+		Client:    mgr.GetClient(),
+		Scheme:    mgr.GetScheme(),
+		Clientset: clientSet,
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "DBaaSProvider")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder

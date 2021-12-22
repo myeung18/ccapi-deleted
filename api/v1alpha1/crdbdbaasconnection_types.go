@@ -17,26 +17,12 @@ limitations under the License.
 package v1alpha1
 
 import (
+	dbaasv1alpha1 "github.com/RHEcosystemAppEng/dbaas-operator/api/v1alpha1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
-// CrdbDBaaSConnectionSpec defines the desired state of CrdbDBaaSConnection
-type CrdbDBaaSConnectionSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of CrdbDBaaSConnection. Edit crdbdbaasconnection_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
-}
-
-// CrdbDBaaSConnectionStatus defines the observed state of CrdbDBaaSConnection
-type CrdbDBaaSConnectionStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-}
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
@@ -47,8 +33,8 @@ type CrdbDBaaSConnection struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   CrdbDBaaSConnectionSpec   `json:"spec,omitempty"`
-	Status CrdbDBaaSConnectionStatus `json:"status,omitempty"`
+	Spec   dbaasv1alpha1.DBaaSConnectionSpec   `json:"spec,omitempty"`
+	Status dbaasv1alpha1.DBaaSConnectionStatus `json:"status,omitempty"`
 }
 
 //+kubebuilder:object:root=true
